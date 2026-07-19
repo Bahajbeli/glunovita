@@ -1,0 +1,10 @@
+{
+  "/not-found": "app/not-found.js",
+  "/[locale]/dashboard/admin/declarations/page": "app/[locale]/dashboard/admin/declarations/page.js",
+  "/[locale]/login/page": "app/[locale]/login/page.js",
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/dashboard/patient/page": "app/[locale]/dashboard/patient/page.js",
+  "/[locale]/dashboard/admin/recipes/page": "app/[locale]/dashboard/admin/recipes/page.js",
+  "/[locale]/dashboard/patient/medical-records/page": "app/[locale]/dashboard/patient/medical-records/page.js",
+  "/[locale]/dashboard/patient/consultations/book/page": "app/[locale]/dashboard/patient/consultations/book/page.js"
+}

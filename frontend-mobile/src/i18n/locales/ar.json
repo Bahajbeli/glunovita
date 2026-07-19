@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "Navigation": {
+      "home": "الرئيسية",
+      "profile": "الملف الشخصي",
+      "settings": "الإعدادات"
+    },
+    "Common": {
+      "welcome": "مرحباً"
+    }
+  }
+}

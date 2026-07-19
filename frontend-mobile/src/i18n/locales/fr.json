@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "Navigation": {
+      "home": "Accueil",
+      "profile": "Profil",
+      "settings": "Paramètres"
+    },
+    "Common": {
+      "welcome": "Bienvenue"
+    }
+  }
+}

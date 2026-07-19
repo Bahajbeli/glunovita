@@ -1,0 +1,41 @@
+[
+  {
+    "_id": "6a56672eaf99cec5b037a0d9",
+    "name": "pizza neptune",
+    "description": "pizza neptune sans gluten",
+    "price": 0,
+    "category": "FOOD",
+    "images": [],
+    "stock": 999,
+    "glutenFree": true,
+    "certification": "NONE",
+    "ingredients": [],
+    "allergens": [],
+    "isActive": false,
+    "isRecipe": true,
+    "recipeIngredients": [
+      {
+        "grammage": 100,
+        "_id": "6a5cf225645079604c8812d3"
+      },
+      {
+        "grammage": 100,
+        "_id": "6a5cf225645079604c8812d4"
+      },
+      {
+        "grammage": 100,
+        "_id": "6a5cf225645079604c8812d5"
+      },
+      {
+        "grammage": 100,
+        "_id": "6a5cf225645079604c8812d6"
+      }
+    ],
+    "margin": 10,
+    "createdBy": "698e259b31c8015171939d7e",
+    "createdAt": "2026-07-14T16:43:26.625Z",
+    "updatedAt": "2026-07-19T16:01:01.908Z",
+    "__v": 1,
+    "image": "/uploads/image-1784476120112-962345181.jpeg"
+  }
+]
