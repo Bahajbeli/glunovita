@@ -62,7 +62,8 @@ pipeline {
         stage('7. Trivy (Sécurité)') {
             steps {
                 dir('backend') {
-                    sh 'trivy fs --severity HIGH,CRITICAL .'
+                    // Utilise l'image Docker officielle de Trivy pour scanner le dossier sans avoir besoin de l'installer
+                    sh 'docker run --rm -v ${WORKSPACE}/backend:/workspace aquasec/trivy:latest fs --severity HIGH,CRITICAL /workspace'
                 }
             }
         }
