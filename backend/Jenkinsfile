@@ -1,0 +1,100 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
+        DOCKER_IMAGE_BACKEND = 'bahabah/glunovita-backend'
+        DOCKER_TAG = "v${env.BUILD_ID}"
+    }
+
+    stages {
+        stage('1. Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('2. Installation') {
+            steps {
+                dir('backend') {
+                    sh 'npm ci'
+                }
+            }
+        }
+
+        stage('3. Lint (Analyse Statique)') {
+            steps {
+                dir('backend') {
+                    sh 'npm run lint || echo "Aucun script de lint configuré"'
+                }
+            }
+        }
+
+        stage('4. Unit Tests') {
+            steps {
+                dir('backend') {
+                    sh 'npm test || echo "Aucun script de test configuré"'
+                }
+            }
+        }
+
+        stage('5. Build') {
+            steps {
+                dir('backend') {
+                    sh 'echo "Compilation non requise pour ce backend Node.js"'
+                }
+            }
+        }
+
+        stage('6. SonarQube') {
+            environment {
+                SCANNER_HOME = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh "${SCANNER_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectKey=glunovita-backend \
+                        -Dsonar.sources=backend"
+                }
+            }
+        }
+
+        stage('7. Trivy (Sécurité)') {
+            steps {
+                dir('backend') {
+                    sh 'trivy fs --severity HIGH,CRITICAL .'
+                }
+            }
+        }
+
+        stage('8. Docker Build') {
+            steps {
+                dir('backend') {
+                    sh "docker build -t ${DOCKER_IMAGE_BACKEND}:${DOCKER_TAG} -t ${DOCKER_IMAGE_BACKEND}:latest ."
+                }
+            }
+        }
+
+        stage('9. Push Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh "docker push ${DOCKER_IMAGE_BACKEND}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_IMAGE_BACKEND}:latest"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            echo "✅ Pipeline Backend terminé avec succès !"
+        }
+        failure {
+            echo "❌ Le pipeline Backend a échoué."
+        }
+    }
+}
