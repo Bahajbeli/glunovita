@@ -55,14 +55,12 @@ pipeline {
                 SCANNER_HOME = tool 'SonarQubeScanner'
             }
             steps {
-                withSonarQubeEnv('SonarQubeServer') {
-                    sh "${SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.host.url=http://host.docker.internal:9000 \
-                        -Dsonar.login=admin \
-                        -Dsonar.password=admine \
-                        -Dsonar.projectKey=glunovita-frontend \
-                        -Dsonar.sources=frontend"
-                }
+                sh "${SCANNER_HOME}/bin/sonar-scanner \
+                    -Dsonar.host.url=http://host.docker.internal:9000 \
+                    -Dsonar.login=admin \
+                    -Dsonar.password=admine \
+                    -Dsonar.projectKey=glunovita-frontend \
+                    -Dsonar.sources=frontend"
             }
         }
 
