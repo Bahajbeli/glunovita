@@ -52,12 +52,7 @@ pipeline {
 
         stage('6. SonarQube') {
             steps {
-                sh "/var/jenkins_home/my-sonar-scanner/bin/sonar-scanner \\
-                    -Dsonar.host.url=http://172.17.0.2:9000 \\
-                    -Dsonar.login=admin \\
-                    -Dsonar.password=admine \\
-                    -Dsonar.projectKey=glunovita-frontend \\
-                    -Dsonar.sources=frontend"
+                sh "/var/jenkins_home/my-sonar-scanner/bin/sonar-scanner -Dsonar.host.url=http://172.17.0.2:9000 -Dsonar.login=admin -Dsonar.password=admine -Dsonar.projectKey=glunovita-frontend -Dsonar.sources=frontend"
             }
         }
 
