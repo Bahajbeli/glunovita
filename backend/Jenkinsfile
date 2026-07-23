@@ -51,15 +51,8 @@ pipeline {
         }
 
         stage('6. SonarQube') {
-            environment {
-                SCANNER_HOME = tool 'SonarQubeScanner'
-            }
             steps {
-                withSonarQubeEnv('SonarQubeServer') {
-                    sh "${SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=glunovita-backend \
-                        -Dsonar.sources=backend"
-                }
+                sh "/var/jenkins_home/my-sonar-scanner/bin/sonar-scanner -Dsonar.host.url=http://172.17.0.2:9000 -Dsonar.login=admin -Dsonar.password=admine -Dsonar.projectKey=glunovita-backend -Dsonar.sources=backend"
             }
         }
 
@@ -67,7 +60,7 @@ pipeline {
             steps {
                 dir('backend') {
                     // Utilise l'image Docker officielle de Trivy pour scanner le dossier sans avoir besoin de l'installer
-                    sh 'docker run --rm -v ${WORKSPACE}/backend:/workspace aquasec/trivy:latest fs --severity HIGH,CRITICAL /workspace'
+                    sh 'docker run --rm -v trivy-cache:/root/.cache/ -v ${WORKSPACE}/backend:/workspace aquasec/trivy:latest fs --severity HIGH,CRITICAL /workspace'
                 }
             }
         }

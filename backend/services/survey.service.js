@@ -26,13 +26,19 @@ export const getSurveys = async (userId, userRole, userRegion) => {
   const query = {
     isActive: true,
     startDate: { $lte: now },
-    $or: [
-      { endDate: null },
-      { endDate: { $gte: now } }
-    ],
-    $or: [
-      { targetRoles: userRole },
-      { targetRegions: userRegion }
+    $and: [
+      {
+        $or: [
+          { endDate: null },
+          { endDate: { $gte: now } }
+        ]
+      },
+      {
+        $or: [
+          { targetRoles: userRole },
+          { targetRegions: userRegion }
+        ]
+      }
     ]
   };
 
