@@ -87,16 +87,7 @@ npm install
 cp .env.example .env
 ```
 
-4. Update the `.env` file with your configuration:
-```env
-PORT=5000
-NODE_ENV=development
-MONGODB_URI=mongodb+srv://baha:baha@cluster0.ytuptr5.mongodb.net/celiac-disease?appName=Cluster0
-JWT_SECRET=your-super-secret-jwt-key-change-in-production
-JWT_REFRESH_SECRET=your-super-secret-refresh-token-key-change-in-production
-JWT_EXPIRE=15m
-JWT_REFRESH_EXPIRE=7d
-```
+4. Update the `.env` file with your configuration variables (see `.env.example`).
 
 5. Start the development server:
 ```bash
@@ -117,10 +108,7 @@ cd frontend
 npm install
 ```
 
-3. Create a `.env.local` file:
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
-```
+3. Create a `.env.local` file with your configuration variables.
 
 4. Start the development server:
 ```bash
