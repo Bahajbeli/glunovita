@@ -59,8 +59,11 @@ pipeline {
         stage('7. Trivy (Sécurité)') {
             steps {
                 dir('frontend') {
-                    // Utilise l'image Docker officielle de Trivy pour scanner le dossier sans avoir besoin de l'installer
-                    sh 'docker run --rm -v trivy-cache:/root/.cache/ -v ${WORKSPACE}/frontend:/workspace aquasec/trivy:latest fs --severity HIGH,CRITICAL /workspace'
+                    sh '''
+                    # Téléchargement et exécution de Trivy en local pour éviter les problèmes de volume Docker
+                    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b .
+                    ./trivy fs --severity HIGH,CRITICAL .
+                    '''
                 }
             }
         }
